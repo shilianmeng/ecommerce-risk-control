@@ -1,0 +1,51 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "后端 FastAPI (8092)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/run.py",
+      "cwd": "${workspaceFolder}/backend",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "preLaunchTask": "start-infra"
+    },
+    {
+      "name": "本地模型 transformers (8093)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/../lanhong_小盟_金融知识库微调/scripts/serve_hf.py",
+      "cwd": "${workspaceFolder}/../lanhong_小盟_金融知识库微调",
+      "args": ["--lora", "outputs/qwen-risk-lora"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "前端 Vue (5181)",
+      "type": "pwa-node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/frontend",
+      "program": "${workspaceFolder}/frontend/node_modules/vite/bin/vite.js",
+      "args": ["--port", "5181", "--strictPort"],
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "pattern": "Local:\\s+(https?://\\S+)",
+        "uriFormat": "%s",
+        "action": "openExternally"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "电商风控（后端 + 前端）",
+      "configurations": ["后端 FastAPI (8092)", "前端 Vue (5181)"],
+      "stopAll": true
+    },
+    {
+      "name": "电商风控 + 本地模型",
+      "configurations": ["本地模型 transformers (8093)", "后端 FastAPI (8092)", "前端 Vue (5181)"],
+      "stopAll": true
+    }
+  ]
+}
